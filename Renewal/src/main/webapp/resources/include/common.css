@@ -1,0 +1,27 @@
+@CHARSET "UTF-8";
+ol, ul {list-style: none;}
+
+.container{
+	width: 100%;
+	height: 100%;
+}
+.header{
+	width: 100%;
+	height: 15%;
+}
+.footer{
+	width: 100%;
+	height: 10%;
+}
+.leftMenu{
+	width: 25%;
+	height: 100%;
+	float: left;
+}
+.leftMenu li{
+	/* float: left; */
+}
+.mainContainer{
+	width: 100%;
+	height: 100%;
+}
