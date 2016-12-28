@@ -108,3 +108,51 @@
 	padding-top: 40px;
 	color: #FC0;
 }
+
+.menuContext{
+	position: relative;
+	top: 50%; 
+	width: 500px;
+	height: 100px;
+	margin: 0 auto;
+}
+
+.menuContext li{
+	float: left;
+	width: 150px;
+	color: red;
+}
+
+.menuContext li:nth-child(2){
+	float: left;
+	width: 150px;
+	color: red;
+	margin-left: 20px;
+}
+
+.menuContext li:nth-child(3){
+	float: left;
+	width: 150px;
+	color: red;
+	margin-left: 20px;
+}
+
+.rightNav{
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	right: 0;
+	overflow-x: hidden;
+	transition: all 0.5s ease-in-out;
+	-webkit-transition: all 0.5s ease-in-out;
+}
+.loginNav{
+	transition: all 0.5s ease-in-out;
+	-webkit-transition: all 0.5s ease-in-out;
+}
+.loginText{
+	margin-left: 10px;
+	clear: both;
+}
