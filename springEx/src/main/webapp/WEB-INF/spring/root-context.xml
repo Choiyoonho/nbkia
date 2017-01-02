@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.1.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 웹 자원과 관련되지 않은 모든 자원의 설정을 위해 존재.
+		웹과 관련된 설정은 appServlet 폴더 내에 있는 servlet-context.xml 파일로 분리 -->
+	 
+	 <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">	<!-- 이 속성의 값에 해당하는 클래스가 존재해야 하기 때문에  pom.xml에서 spring-jdbc 모듈을 추가해 줌 -->
+	 	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	 	<property name="url" value="jdbc:mysql://localhost:3306/springex"/>
+	 	<property name="username" value="root"/>
+	 	<property name="password" value="1234"/>
+	 </bean>
+	 
+	 <!-- SqlSessionFactory는 데이터베이스와의 연결과 SQL의 실행에 대한 모든 것을 가진 가장 중요한 객체 -->
+	 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">	<!-- 이 속성의 값에 해당하는 클래스는 MyBatis-Spring 모듈을 다운로드 받아야만 사용 가능(pom.xml) -->
+	 	<property name="dataSource" ref="dataSource"/>
+	 	<property name="configLocation" value="classpath:/mybatis-config.xml"/>	<!-- mybaits-config파일이 스프링이 동작할 때 같이 동작하도록 설정 -->
+	 	<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"/>	<!-- Mybatis가 동작하면 작성된 XML Mapper를 인식하기 위해서 설정. 파일이름이 Mapper.xml로  끝나면 자동 인식 -->
+	 </bean>
+	 
+	 <!-- SqlSessionTemplate는 MyBatis의 SqlSession 인터페이스를 구현한 클래스로 기본적인 트랜잭션의 관리나 쓰레드 처리의 안정성 등을 보장해주고, 데이터베이스의 연결과 종료를 책임진다. -->
+	 <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+	 	<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	 </bean>
+	 
+	 <!-- MyBatis의 로그를 보다 자세히 조사 할 수 있도록 도와주는 라이브러리 log4jdbc-log4j2의 내용 - 이걸로 DB 연동 가능
+	 		- log4jdbc-log4j2가 제대로 동작하기 위해선 별도의 로그 관련 설정 파일이 필요함
+	 		- log4jdbc.log4j2.properties
+	 		- logback.xml -->
+	 <!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	 	<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+	 	<property name="url" value="jdbc:log4jdbc:mysql://localhost:3306/springex"/>
+	 	<property name="username" value="root"/>
+	 	<property name="password" value="1234"/>
+	</bean> -->
+	 
+</beans>
