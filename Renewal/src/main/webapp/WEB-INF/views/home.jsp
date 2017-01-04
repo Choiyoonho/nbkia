@@ -12,6 +12,17 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <script>
+function lCheck(){
+	if($("#mId").val() == ""){
+		alert("아이딛를 입력해 주세요.");
+		return false;	
+	}
+	if($("#mPw").val() == ""){
+		alert("비밀번호를 입력해주세요.");
+		return false;
+	}
+	
+}
 	if ($(window).width() > 0) {
 		$(window).on("scroll", function(ev) {
 			if ($(window).scrollTop() > 150) {
@@ -121,11 +132,13 @@
 		</div>
 		<div id="section03">test</div>
 	</div>
-	<div class="rightNav" id="rightNav">
-		아이디 <input type="text" class="loginText" name="memberId" id="memberId" size="5">
-		비밀번호 <input type="text" class="loginText" name="memberPw" id="memberPw" size="10">
-		<input type="submit" value="로그인">
-		<input type="button" value="회원가입">
-		<span id="close" style="cursor:pointer">close</span>
-	</div>
+	<form action="login" method="POST" onsubmit="return lCheck()">
+		<div class="rightNav" id="rightNav">
+			아이디 <input type="text" class="loginText" name="mId" id="mId" size="5">
+			비밀번호 <input type="text" class="loginText" name="mPw" id="mPw" size="10">
+			<input type="submit" value="로그인">
+			<a href="./register">회원가입</a>
+			<span id="close" style="cursor:pointer">close</span>
+		</div>
+	</form>
 </body>

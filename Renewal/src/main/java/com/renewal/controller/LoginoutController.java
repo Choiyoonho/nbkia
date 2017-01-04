@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class LoginoutController {
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String login(HttpServletRequest request, HttpServletResponse response){
-		System.out.println("ì•„ì•„ë”” : " + request.getParameter("memberId") + "\n" + "ë¹„ë°€ë²ˆí˜¸ : " + request.getParameter("memberPw"));
+		System.out.println("¾ÆÀÌµð : " + request.getParameter("memberId") + "\n" + "ºñ¹Ð¹øÈ£ : " + request.getParameter("memberPw"));
+		
 		return "home";
 	}
 	
