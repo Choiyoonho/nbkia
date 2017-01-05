@@ -34,4 +34,32 @@
 			ORDER BY bno DESC, regdate DESC
 		]]>
 	</select>
+	
+	<select id="listPage" resultType="org.springex01.domain.BoardVO">
+		<![CDATA[
+			SELECT bno, title, writer, regdate, viewcnt
+			FROM tbl_board
+			WHERE bno > 0
+			ORDER BY bno DESC, regdate DESC
+			LIMIT #{page}, 10
+		]]>
+	</select>
+	
+	<select id="listCriteria" resultType="org.springex01.domain.BoardVO">
+		<![CDATA[
+			SELECT bno, title, writer, regdate, viewcnt
+			FROM tbl_board
+			WHERE bno > 0
+			ORDER BY bno DESC, regdate DESC
+			LIMIT #{pageStart}, #{perPageNum}
+		]]>
+	</select>
+	
+	<select id="countPaging" resultType="int">
+		<![CDATA[
+			SELECT count(bno)
+			FROM tbl_board
+			WHERE bno > 0
+		]]>
+	</select>
 </mapper>

@@ -5,9 +5,12 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springex01.domain.BoardVO;
+import org.springex01.domain.Criteria;
+import org.springex01.domain.PageMaker;
 import org.springex01.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,6 +63,14 @@ public class BoardController {
 		model.addAttribute(service.read(bno));	//addAttribute() 작업을 할 때 아무런 이름 없이 데이터를 넣으면 자동으로 클래스의 이르믈 소문자로 시작해서 사용
 	}
 	
+	/* 다시 목록 페이지로 돌아기기 위한 정보
+	 * 1) 현재 목록 페이지의 페이지 번호
+	 * 2) 현재 목록 페이지의 페이지당 데이터의 수 */
+	@RequestMapping(value = "/readPage", method = RequestMethod.GET)
+	public void readPage(@RequestParam("bno") int bno, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+		model.addAttribute(service.read(bno));
+	}
+	
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
 	public String remove(@RequestParam("bno") int bno, RedirectAttributes rttr) throws Exception {
 		/* 삭제 또한 새로고침으로 데이터를 재전송 할 수 있기에 RedirectAttributes의 addFlashAttribute로 처리하고
@@ -83,5 +94,24 @@ public class BoardController {
 		rttr.addFlashAttribute("msg", "success");
 		
 		return "redirect:/board/listAll";
+	}
+	
+	@RequestMapping(value = "/listCri", method = RequestMethod.GET)
+	public void listAll(Criteria cri, Model model) throws Exception {
+		logger.info("listAll criteria ()....."); 
+		model.addAttribute("list", service.listCriteria(cri));
+	}
+	
+	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
+	public void listPage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+		logger.info(cri.toString());
+		
+		model.addAttribute("list", service.listCriteria(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		//pageMaker.setTotalCount(131); test용
+		pageMaker.setTotalCount(service.listCountCriteria(cri));
+		
+		model.addAttribute("pageMaker", pageMaker);
 	}
 }
