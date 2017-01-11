@@ -23,6 +23,22 @@
 	
 	<context:component-scan base-package="org.springex01.controller" />
 	
+	<beans:bean id="loginInterceptor" class="org.springex01.interceptor.LoginInterceptor"></beans:bean>
+	<beans:bean id="authInterceptor" class="org.springex01.interceptor.AuthInterceptor"></beans:bean>
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/user/loginPost" />	<!-- /user/loginPost 경로를 호출할 때 interceptor 동작 -->	
+			<beans:ref bean="loginInterceptor" />
+		</interceptor>
+	</interceptors>
+	
+	<!-- 새로운 게시물을 작성하는 register에 접근하게 되면 사용자가 로그인 했는지 판별하는 AuthInterceptor로 가서 판별 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/sboard/register" />
+			<beans:ref bean="authInterceptor" />
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>

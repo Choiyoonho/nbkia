@@ -26,7 +26,7 @@ public class BoardController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public void registerGET(BoardVO vo, Model model) throws Exception {
-		logger.info("registerGET().....");	//return 값이 없는데 들어가지는 이유??
+		logger.info("registerGET().....");
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -44,7 +44,6 @@ public class BoardController {
 		 * 이를 보완하기 위해서 스프링에서 제공하는 리다리엑트 시점에 한번만 사용되는 데이터를 전송하는
 		 *  RedirectAttribute 객체의 addFlashAttribute()를 사용*/
 		rttr.addFlashAttribute("msg", "success");
-		
 		
 		//return "/board/success"; // 새로고침시 재등록 요청 질문을 한다.(이를 악의적으로 사용하여 도배 가능 하기에 아래와 같이 수정
 		return "redirect:/board/listAll";
@@ -81,6 +80,17 @@ public class BoardController {
 		return "redirect:/board/listAll";
 	}
 	
+	@RequestMapping(value = "/removePage", method = RequestMethod.POST)
+	public String removePage(@RequestParam("bno") int bno, Criteria cri, RedirectAttributes rttr) throws Exception {
+		service.remove(bno);
+		
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addFlashAttribute("msg", "success");
+		
+		return "redirect:/board/listPage";
+	}
+	
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public void modifyGET(int bno, Model model) throws Exception {
 		model.addAttribute(service.read(bno));
@@ -114,4 +124,5 @@ public class BoardController {
 		
 		model.addAttribute("pageMaker", pageMaker);
 	}
+	
 }

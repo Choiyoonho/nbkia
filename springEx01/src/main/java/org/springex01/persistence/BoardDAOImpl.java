@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springex01.domain.BoardVO;
 import org.springex01.domain.Criteria;
+import org.springex01.domain.SearchCriteria;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -58,5 +59,15 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int countPaging(Criteria cri) throws Exception {
 		return session.selectOne(ns+".countPaging", cri);
+	}
+
+	@Override
+	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception {
+		return session.selectList(ns+".listSearch", cri);
+	}
+
+	@Override
+	public int listSearchCount(SearchCriteria cri) throws Exception {
+		return session.selectOne(ns+".listSearchCount", cri);
 	}
 }

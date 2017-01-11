@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springex01.domain.BoardVO;
 import org.springex01.domain.Criteria;
+import org.springex01.domain.SearchCriteria;
 
 public interface BoardDAO {
 	public void create(BoardVO vo) throws Exception;
@@ -17,4 +18,7 @@ public interface BoardDAO {
 	public List<BoardVO> listCriteria(Criteria cri) throws Exception;
 	/* totalCount를 반환할 수 있게 처리하기 위해서 */
 	public int countPaging(Criteria cri) throws Exception;
+	/* seach */
+	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception;
+	public int listSearchCount(SearchCriteria cri) throws Exception;
 }
