@@ -20,7 +20,7 @@
 			<artifactId>spring-context</artifactId>
 			<version>${org.springframework-version}</version>
 			<exclusions>
-				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<!-- Exclude Commons Logging  in favor of SLF4j -->
 				<exclusion>
 					<groupId>commons-logging</groupId>
 					<artifactId>commons-logging</artifactId>
@@ -150,6 +150,12 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>4.1.7.RELEASE</version>
+		</dependency>
+		<!-- 객체를 JSON 타입의 데이터로 변환하거나, 반대의 작업을 할 때 반드시 필요 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.5.4</version>
 		</dependency>
 	</dependencies>
     <build>

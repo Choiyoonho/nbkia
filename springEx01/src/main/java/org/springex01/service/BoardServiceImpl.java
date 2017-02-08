@@ -60,4 +60,9 @@ public class BoardServiceImpl implements BoardService {
 		return dao.listSearchCount(cri);
 	}
 
+	@Override
+	public void updateReadCount(int bno) throws Exception {
+		dao.updateReadCount(bno);
+	}
+
 }

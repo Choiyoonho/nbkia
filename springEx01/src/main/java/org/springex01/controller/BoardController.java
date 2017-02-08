@@ -125,4 +125,7 @@ public class BoardController {
 		model.addAttribute("pageMaker", pageMaker);
 	}
 	
+	@RequestMapping(value = "/ajax", method = RequestMethod.GET)
+	public void ajax() throws Exception {
+	}
 }

@@ -13,7 +13,7 @@ public class BoardVO {
 	public BoardVO() {
 		super();
 	}
-
+	
 	public BoardVO(Integer bno, String title, String content, String writer, Date regdate, int viewcnt) {
 		super();
 		this.bno = bno;
@@ -23,7 +23,7 @@ public class BoardVO {
 		this.regdate = regdate;
 		this.viewcnt = viewcnt;
 	}
-
+	
 	public Integer getBno() {
 		return bno;
 	}

@@ -20,7 +20,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public void create(BoardVO vo) throws Exception {
 		session.insert(ns+".create", vo);
 	}
-
+	
 	@Override
 	public BoardVO read(Integer bno) throws Exception {
 		return session.selectOne(ns+".read", bno);
@@ -69,5 +69,10 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
 		return session.selectOne(ns+".listSearchCount", cri);
+	}
+
+	@Override
+	public void updateReadCount(int bno) throws Exception {
+		session.update(ns+".updateReadCount", bno);
 	}
 }

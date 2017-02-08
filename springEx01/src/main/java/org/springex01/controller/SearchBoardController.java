@@ -1,6 +1,9 @@
 package org.springex01.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springex01.domain.BoardVO;
 import org.springex01.domain.PageMaker;
@@ -45,6 +48,7 @@ public class SearchBoardController {
 	
 	@RequestMapping(value = "/readPage", method = RequestMethod.GET)
 	public void read(@RequestParam("bno") int bno, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+		service.updateReadCount(bno);
 		model.addAttribute(service.read(bno));
 	}
 	

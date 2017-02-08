@@ -16,5 +16,4 @@ public class LoginDTO {
 	public void setUpw(String upw) {
 		this.upw = upw;
 	}
-	
 }

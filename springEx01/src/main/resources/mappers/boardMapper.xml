@@ -15,6 +15,13 @@
 		WHERE bno = #{bno}
 	</select>
 	
+	<update id="updateReadCount">
+		UPDATE tbl_board
+		SET viewcnt = IFNULL(viewcnt, 0) + 1
+		WHERE bno = #{bno}
+		LIMIT 1
+	</update>
+	
 	<update id="update">
 		UPDATE tbl_board
 		SET title = #{title}, content = #{content}
